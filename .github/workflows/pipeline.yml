@@ -53,7 +53,7 @@ jobs:
       # Dica: instale com "pip install semgrep" e rode
       #   semgrep scan --config auto --config p/xss --error src/
       - name: 🔍 SAST - Semgrep
-        run: echo "TODO - implemente o SAST com Semgrep aqui"
+        uses: gitleaks/gitleaks-action@v2
 
       # ❌ PASSO A IMPLEMENTAR — SCA com Grype
       # Dica: primeiro, gere o package-lock pelo npm:
@@ -63,11 +63,11 @@ jobs:
       # E rode:
       #   grype dir:. --fail-on medium
       - name: 📦 SCA - Grype
-        run: echo "TODO - implemente o SCA com Grype aqui"
+        uses: gitleaks/gitleaks-action@v2
 
       # ── Empacota o site em um artefato tar (formato que o Pages consome)
       - name: 📦 Empacotar artefato do site
-        run: |
+        uses: gitleaks/gitleaks-action@v2
           tar \
             --dereference --hard-dereference \
             -C src \
@@ -77,7 +77,7 @@ jobs:
 
       # ── Calcula o hash do artefato
       - name: 🔢 Hash do artefato
-        run: |
+        uses: gitleaks/gitleaks-action@v2
           digest=$(sha256sum artifact.tar | awk '{print $1}')
           echo "$digest" > artifact.tar.sha256
           echo "SHA256: $digest"
@@ -92,7 +92,7 @@ jobs:
       # Dica da assinatura real:
       #   cosign sign-blob artifact.tar --bundle artifact.sigstore.json --yes
       - name: ✍️ Assinar artefato
-        run: |
+        uses: gitleaks/gitleaks-action@v2
           echo '{ "mock": "assinatura-invalida-para-demonstracao" }' > artifact.sigstore.json
           echo "Assinatura MOCK gerada."
 
@@ -129,7 +129,7 @@ jobs:
 
       # ⚠️ Usa o Cosign para validar assinatura do artefato - descomentar após assinatura
       # - name: 🔎 Verificar assinatura do artefato
-      #  run: |
+      #  uses: gitleaks/gitleaks-action@v2
       #    cosign verify-blob artifact.tar \
       #      --bundle artifact.sigstore.json \
       #      --certificate-identity-regexp "^https://github.com/${{ github.repository }}/.github/workflows/.*" \
@@ -138,7 +138,7 @@ jobs:
 
       # Descompacta o site para publicar
       - name: 📂 Extrair site verificado
-        run: |
+        ruses: gitleaks/gitleaks-action@v2
           mkdir -p site
           tar -xvf artifact.tar -C site
 
