@@ -34,12 +34,12 @@ jobs:
       - name: 🔐 Inserir Secrets no JavaScript
         #env:
           #VAR: ${{ secrets.VAR  }}
-        uses: gitleaks/gitleaks-action@v2
+        
           echo "Nenhum segredo inserido no código por enquanto"
       #   sed -i "s|__VAR__|$VAR|g" src/script.js
 
       - name: ⚙️ Build
-        run: |
+        uses: gitleaks/gitleaks-action@v2
           echo "Verificando arquivos..."
           ls src/
           echo "Build OK!"
